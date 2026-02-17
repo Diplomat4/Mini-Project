@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MaKS Print Solutions | End-to-End Workflow</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="main.js" defer></script>
+</head>
+<body>
+
+    <nav class="navbar">
+        <a class="brand" href="Homepage.html" aria-label="Go to Homepage">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M6 9V2h12v7"></path>
+                <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+                <path d="M6 14h12v8H6z"></path>
+            </svg>
+            MaKS Print Solutions
+        </a>
+
+        <div class="nav-links" aria-label="Primary navigation">
+            <a href="Homepage.html">Home</a>
+            <a href="Dashboard.html" aria-current="page">Dashboard</a>
+            <a href="#manuscriptWorkspace">Manuscripts</a>
+            <a href="#footerContact">Contact</a>
+        </div>
+
+        <div class="nav-right">
+            <span class="nav-meta">Mini Project by Mandal, Karmakar, Seth</span>
+            <a class="btn btn-secondary btn-sm" href="LOGIN/Login.html">Sign in</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        
+        <aside>
+            <div class="card">
+                <h2>New Job Entry</h2>
+                <form id="jobForm">
+                    <div class="form-group">
+                        <label for="clientName">Client / Publication Name</label>
+                        <input type="text" id="clientName" placeholder="e.g. Arihant Publications" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="jobTitle">Job Title</label>
+                        <input type="text" id="jobTitle" placeholder="e.g. Biology Textbook Vol. 1" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="jobType">Estimation Category</label>
+                        <select id="jobType" required>
+                            <option value="Academic">Academic & Textbooks</option>
+                            <option value="Trade">Trade Paperbacks</option>
+                            <option value="Promotional">Promo (Brochures, Bookmarks)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="quantity">Quantity</label>
+                        <input type="number" id="quantity" placeholder="e.g. 5000" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="priority">Priority</label>
+                        <select id="priority">
+                            <option value="Normal">Normal</option>
+                            <option value="Urgent">Urgent</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="btn">Create Production Ticket</button>
+                </form>
+            </div>
+
+            <div class="card">
+                <h2>Workflow Logic</h2>
+                <div class="helper-text">
+                    <p><strong>Manuscript:</strong> File verification & MIS entry.</p>
+                    <hr>
+                    <p><strong>Prepress:</strong> Imposition, CTP/Platemaking.</p>
+                    <hr>
+                    <p><strong>Printing:</strong> Offset/Digital production run.</p>
+                    <hr>
+                    <p><strong>Binding:</strong> Cutting, folding, stitching/gluing.</p>
+                    <hr>
+                    <p><strong>Dispatch:</strong> QC, Packaging and Delivery.</p>
+                </div>
+            </div>
+        </aside>
+
+        <main>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-val" id="totalJobs">0</div>
+                    <div class="stat-label">Active Jobs</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-val" id="prepressCount" style="color: var(--warning);">0</div>
+                    <div class="stat-label">In Prepress</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-val" id="printCount" style="color: var(--primary);">0</div>
+                    <div class="stat-label">On Machine</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-val" id="dispatchCount" style="color: var(--success);">0</div>
+                    <div class="stat-label">Completed</div>
+                </div>
+            </div>
+
+            <div class="card" id="manuscriptWorkspace">
+                <h2>Manuscript Workspace (Front-end Only)</h2>
+                <p class="helper-text" style="margin-bottom: 1rem;">
+                    Upload a manuscript/proof as a new version and leave notes. This demo stores version history in your browser (no backend).
+                </p>
+                <p class="helper-text" id="msStatus" style="margin-bottom: 1rem;">
+                    Status: initializing…
+                </p>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="msRole">Uploading as</label>
+                        <select id="msRole">
+                            <option value="Author">Author</option>
+                            <option value="Printer">Printer / Production</option>
+                            <option value="Editor">Editor</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="msStage">Status</label>
+                        <select id="msStage">
+                            <option value="Draft">Draft</option>
+                            <option value="Proof Sent">Proof Sent</option>
+                            <option value="Approved">Approved</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="msFile">Manuscript / Proof File</label>
+                    <div class="dropzone" id="msDropzone" role="button" tabindex="0" aria-label="Upload manuscript file (drag and drop or click)">
+                        <div class="dropzone-title">Drag & drop your file here</div>
+                        <div class="dropzone-sub">or click to browse • PDF, DOCX, TXT, MD, RTF</div>
+                        <div class="dropzone-file" id="msSelectedFile">No file selected</div>
+                        <input type="file" id="msFile" accept=".pdf,.doc,.docx,.txt,.md,.rtf">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="msNote">Notes / requested changes (optional)</label>
+                    <input type="text" id="msNote" placeholder="e.g. Printer: fix margins in Chapter 3; Author: updated Figure 2.1">
+                </div>
+
+                <div class="btn-row">
+                    <button type="button" class="btn" id="msSaveBtn">Upload as New Version</button>
+                    <button type="button" class="btn btn-secondary" id="msClearBtn">Clear History</button>
+                </div>
+
+                <div class="table-container" style="margin-top: 1rem;">
+                    <table id="msTable" aria-label="Manuscript versions table">
+                        <thead>
+                            <tr>
+                                <th>Version</th>
+                                <th>File</th>
+                                <th>Uploaded By</th>
+                                <th>Status</th>
+                                <th>Notes</th>
+                                <th>Time</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>Live Production Status</h2>
+                <div class="table-toolbar" aria-label="Job table tools">
+                    <div class="table-toolbar-left">
+                        <div class="form-group" style="margin:0;">
+                            <label class="sr-only" for="jobSearch">Search jobs</label>
+                            <input type="search" id="jobSearch" placeholder="Search by ID, client, title…">
+                        </div>
+                        <div class="form-group" style="margin:0; min-width: 200px;">
+                            <label class="sr-only" for="jobTypeFilter">Filter by type</label>
+                            <select id="jobTypeFilter">
+                                <option value="All">All types</option>
+                                <option value="Academic">Academic</option>
+                                <option value="Trade">Trade</option>
+                                <option value="Promotional">Promotional</option>
+                            </select>
+                        </div>
+                        <div class="form-group" style="margin:0; min-width: 200px;">
+                            <label class="sr-only" for="jobStageFilter">Filter by stage</label>
+                            <select id="jobStageFilter">
+                                <option value="All">All stages</option>
+                                <option value="Manuscript">Manuscript</option>
+                                <option value="Prepress">Prepress</option>
+                                <option value="Printing">Printing</option>
+                                <option value="Binding">Binding</option>
+                                <option value="Dispatch">Dispatch</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="table-toolbar-right">
+                        <div class="form-group" style="margin:0; min-width: 190px;">
+                            <label class="sr-only" for="jobSort">Sort</label>
+                            <select id="jobSort">
+                                <option value="Newest">Newest first</option>
+                                <option value="Oldest">Oldest first</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="table-container">
+                    <table id="jobsTable">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Job Details</th>
+                                <th>Type</th>
+                                <th>Current Stage</th>
+                                <th>Visual Workflow</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <footer class="site-footer" id="footerContact">
+        <div class="site-footer-inner">
+            <div>
+                <div class="footer-brand">MaKS Print Solutions</div>
+                <div class="footer-sub">End-to-end publication workflow • Front-end prototype</div>
+            </div>
+            <div class="footer-links">
+                <a href="Homepage.html">Home</a>
+                <a href="Dashboard.html">Dashboard</a>
+                <a href="LOGIN/Login.html">Sign in</a>
+                <a href="#manuscriptWorkspace">Manuscripts</a>
+            </div>
+            <div class="footer-contact">
+                <div><strong>Contact</strong></div>
+                <div>Phone: 2023202027</div>
+                <div>Email: support@maksprint.com</div>
+            </div>
+        </div>
+        <div class="footer-bottom">&copy; 2026 MaKS Print Solutions by Karmakar, Seth, Mandal</div>
+    </footer>
+
+    <div class="toast-container" id="toastContainer" aria-live="polite" aria-relevant="additions"></div>
+
+    <div class="modal-overlay" id="appModal" aria-hidden="true">
+        <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" aria-describedby="modalBody">
+            <div class="modal-header">
+                <div class="modal-title" id="modalTitle">Confirm</div>
+                <button class="icon-btn" type="button" id="modalCloseBtn" aria-label="Close dialog">×</button>
+            </div>
+            <div class="modal-body" id="modalBody">Are you sure?</div>
+            <div class="modal-actions">
+                <button type="button" class="btn btn-secondary btn-sm" id="modalCancelBtn">Cancel</button>
+                <button type="button" class="btn btn-danger btn-sm" id="modalConfirmBtn">Confirm</button>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
