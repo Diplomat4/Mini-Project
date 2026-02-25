@@ -1,10 +1,10 @@
 :root {
     --primary: #2563eb;
-    --bg: #f8fafc;
-    --surface: #ffffff;
-    --border: #e2e8f0;
-    --text-main: #1e293b;
-    --text-sub: #64748b;
+    --bg: #0b1220;
+    --surface: #111a2e;
+    --border: #26334c;
+    --text-main: #e2e8f0;
+    --text-sub: #9fb0c8;
 }
 
 * {
@@ -16,6 +16,7 @@
 
 body {
     background-color: var(--bg);
+    color: var(--text-main);
     display: flex;
     flex-direction: column;
     min-height: 100vh;
@@ -87,15 +88,16 @@ input {
     width: 100%;
     padding: 0.75rem;
     border-radius: 6px;
-    border: 1px solid #cbd5e1;
-    background: #f8fafc;
+    border: 1px solid var(--border);
+    background: #0f172a;
+    color: var(--text-main);
     transition: 0.2s;
 }
 
 input:focus {
     outline: none;
     border-color: var(--primary);
-    background: white;
+    background: #0d1527;
     box-shadow: 0 0 0 3px rgba(37,99,235,0.1);
 }
 
@@ -120,6 +122,7 @@ input:focus {
     text-align: center;
     margin-top: 1.5rem;
     font-size: 0.85rem;
+    color: var(--text-sub);
 }
 
 .link-btn {
@@ -139,4 +142,5 @@ input:focus {
     text-align: center;
     font-size: 0.85rem;
     font-weight: 500;
+    color: var(--text-main);
 }
